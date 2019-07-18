@@ -6,6 +6,9 @@ using AutoFacMvc.Repository.Core;
 
 namespace AutoFacMvc.Controllers
 {
+    /// <summary>
+    /// https://miniprofiler.com/dotnet/AspDotNet
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWorkRepository;

@@ -63,8 +63,14 @@
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="MiniProfiler, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.4.0.180\lib\net461\MiniProfiler.dll</HintPath>
+    </Reference>
     <Reference Include="MiniProfiler.EF6, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
       <HintPath>..\packages\MiniProfiler.EF6.4.0.180\lib\net461\MiniProfiler.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MiniProfiler.Mvc5, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.Mvc5.4.0.180\lib\net461\MiniProfiler.Mvc5.dll</HintPath>
     </Reference>
     <Reference Include="MiniProfiler.Shared, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
       <HintPath>..\packages\MiniProfiler.Shared.4.0.180\lib\net461\MiniProfiler.Shared.dll</HintPath>
