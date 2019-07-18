@@ -5,10 +5,10 @@
 }
 
 <h2>Add Student</h2>
-@using (Html.BeginForm("AddNewStudent"))
+@using (Html.BeginForm())
 {
-    <p>id:@Html.TextBoxFor(m => m.Id)</p>
-    <p>name:@Html.TextBoxFor(m => m.Name)</p>
-    <p>age:@Html.TextBoxFor(m => m.Age)</p>
+    <p>id: @Html.TextBoxFor(m => m.Id)</p>
+    <p>name: @Html.TextBoxFor(m => m.Name)</p>
+    <p>age: @Html.TextBoxFor(m => m.Age)</p>
     <input type="submit" />
 }

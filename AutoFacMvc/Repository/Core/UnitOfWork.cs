@@ -10,14 +10,15 @@ namespace AutoFacMvc.Repository.Core
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IComponentContext _componentContext;
+        protected readonly DbContext Context;
 
         public UnitOfWork(DbContext context, IComponentContext componentContext)
         {
-            DbContext = context;
+            Context = context;
             _componentContext = componentContext;
         }
 
-        public DbContext DbContext { get; }
+        public DbContext DbContext => Context;
 
         public TRepository GetRepository<TRepository>() where TRepository : class
         {
@@ -26,24 +27,24 @@ namespace AutoFacMvc.Repository.Core
 
         public void ExecuteProcedure(string procedureCommand, params object[] sqlParams)
         {
-            DbContext.Database.ExecuteSqlCommand(procedureCommand, sqlParams);
+            Context.Database.ExecuteSqlCommand(procedureCommand, sqlParams);
         }
 
         public void ExecuteSql(string sql)
         {
-            DbContext.Database.ExecuteSqlCommand(sql);
+            Context.Database.ExecuteSqlCommand(sql);
         }
 
         public List<T> SqlQuery<T>(string sql)
         {
-            return DbContext.Database.SqlQuery<T>(sql).ToList();
+            return Context.Database.SqlQuery<T>(sql).ToList();
         }
 
         public void SaveChanges()
         {
             try
             {
-                DbContext.SaveChanges();
+                Context.SaveChanges();
             }
             catch (InvalidOperationException ex)
             {
@@ -56,7 +57,7 @@ namespace AutoFacMvc.Repository.Core
 
         public void Dispose()
         {
-            DbContext?.Dispose();
+            Context?.Dispose();
         }
     }
 }

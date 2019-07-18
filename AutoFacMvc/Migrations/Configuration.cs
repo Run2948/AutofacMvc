@@ -8,7 +8,7 @@ namespace AutoFacMvc.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(SchoolContext context)

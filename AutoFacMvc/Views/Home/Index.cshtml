@@ -2,8 +2,9 @@
 
 <h1>Student List</h1>
 <table border="1">
+    <caption>@Html.ActionLink("AddNewStudent","AddNewStudent")</caption>
     <tr><td>ID</td><td>Name</td><td>Age</td></tr>
-    @foreach(var student in Model)
+    @foreach (var student in Model)
     {
         <tr>
             <td>@student.Id</td>
