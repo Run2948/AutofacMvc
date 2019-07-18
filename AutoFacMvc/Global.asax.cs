@@ -9,6 +9,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using AutoFacMvc.Models;
 using StackExchange.Profiling;
+using StackExchange.Profiling.EntityFramework6;
 
 namespace AutoFacMvc
 {
@@ -16,7 +17,7 @@ namespace AutoFacMvc
     {
         protected void Application_Start()
         {
-            MiniProfilerEF.Initialize();
+            MiniProfilerEF6.Initialize();
 
             //Autofac初始化过程
             var builder = new ContainerBuilder();
@@ -38,19 +39,6 @@ namespace AutoFacMvc
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             ModelBinders.Binders.Add(typeof(Student), new StudentModelBinder());
-        }
-
-        protected void Application_BeginRequest()
-        {
-            if (Request.IsLocal)
-            {
-                MiniProfiler.Start();
-            } 
-        }
-
-        protected void Application_EndRequest()
-        {
-            MiniProfiler.Stop();
         }
     }
 }
