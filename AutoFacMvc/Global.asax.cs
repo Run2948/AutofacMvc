@@ -27,8 +27,6 @@ namespace AutoFacMvc
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
 
             //add the Entity Framework context to make sure only one context per request
-
-
             builder.RegisterType<SchoolContext>().InstancePerRequest();
             builder.Register(c => c.Resolve<SchoolContext>()).As<DbContext>().InstancePerRequest();
 

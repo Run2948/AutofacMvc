@@ -20,7 +20,7 @@ namespace AutoFacMvc.Repository.Core
         IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate);
 
         /// <summary>
-        /// Gets objects from database with filting and paging.
+        /// Gets objects from database with filtering and paging.
         /// </summary>
         /// <param name="filter">Specified a filter</param>
         /// <param name="total">Returns the total records count of the filter.</param>
@@ -80,7 +80,6 @@ namespace AutoFacMvc.Repository.Core
         /// <summary>
         /// Select Single Item by specified expression.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="expression"></param>
         /// <returns></returns>
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression);
