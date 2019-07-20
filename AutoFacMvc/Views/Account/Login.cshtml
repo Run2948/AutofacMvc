@@ -1,0 +1,32 @@
+﻿@model AutoFacMvc.Models.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="modal-dialog" style="margin-top: 10%; width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title text-center" id="myModalLabel">Login</h4>
+            </div>
+            <div class="modal-body" id="model-body">
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "UserName", @autocomplete = "off", @required = "" })
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password", @autocomplete = "off", @required = "" })
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    @Html.ValidationSummary(false)
+                    @Html.HiddenFor(m => m.ValidCode, new { @Value = "on" })
+                    <button type="submit" class="btn btn-primary form-control">Login</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+}
+

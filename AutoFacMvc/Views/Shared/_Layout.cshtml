@@ -1,12 +1,14 @@
 ﻿@using StackExchange.Profiling;
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_CN">
 <head>
-    <title>Test</title>
-    <script type="text/javascript" src="~/Scripts/jquery-2.0.3.min.js"></script>
+    <title>@ViewBag.Title - AutoFacMvc</title>
+    <link type="text/css" href="~/Content/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    @RenderBody()
+    <div class="container">
+        @RenderBody()
+    </div>
     @MiniProfiler.RenderIncludes()
 </body>
 </html>

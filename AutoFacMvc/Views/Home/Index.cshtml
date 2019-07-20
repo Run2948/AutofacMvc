@@ -1,15 +1,51 @@
-﻿@model IEnumerable<dynamic>
+﻿@model IEnumerable<Student>
+@{
+    ViewBag.Title = "Student List";
+}
 
-<h1>Student List</h1>
-<table border="1">
-    <caption>@Html.ActionLink("AddNewStudent","AddNewStudent")</caption>
-    <tr><td>ID</td><td>Name</td><td>Age</td></tr>
-    @foreach (var student in Model)
-    {
-        <tr>
-            <td>@student.Id</td>
-            <td>@student.Name</td>
-            <td>@student.Age</td>
-        </tr>
-    }
-</table>
+<h1></h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3> @ViewBag.Title </h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-hover table-striped table-responsive">
+            <caption>
+                @Html.ActionLink("Add Student", "EditStudent", null, new {@class = "btn btn-primary", @style = "margin-bottom:10px;"})
+            </caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>CreatorId</th>
+                    <th>CreatorName</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.Id</td>
+                        <td>@student.Name</td>
+                        <td>@student.Age</td>
+                        <td>@student.CreatorId</td>
+                        <td>@student.CreatorName</td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditStudent", new { id = student.Id },new{ @class="btn btn-sm btn-info" })
+                            @Html.ActionLink("Delete", "DeleteStudent", new { id = student.Id }, new { @onclick = "if(confirm('Are you sure?') == false) return false;",@class="btn btn-sm btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="">
+                        Total @Model.Count() Counts
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

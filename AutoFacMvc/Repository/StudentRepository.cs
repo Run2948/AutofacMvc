@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoFacMvc.Models;
 using AutoFacMvc.Repository.Core;
+using AutoFacMvc.Repository.Interface;
 
 namespace AutoFacMvc.Repository
 {
@@ -15,12 +16,7 @@ namespace AutoFacMvc.Repository
             _context = context;
         }
 
-        public IEnumerable<dynamic> GetIEnumerableStudents()
-        {
-            return _context.Students;
-        }
-
-        public IQueryable<dynamic> GetIQueryableStudents()
+        public IQueryable<Student> GetIQueryableStudents()
         {
             return _context.Students;
         }

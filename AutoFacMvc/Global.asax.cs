@@ -1,3 +1,4 @@
+using System;
 using Autofac;
 using Autofac.Integration.Mvc;
 using AutoFacMvc.Models;
@@ -5,8 +6,12 @@ using StackExchange.Profiling;
 using StackExchange.Profiling.EntityFramework6;
 using System.Data.Entity;
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AutoFacMvc.Attributes;
+using AutoFacMvc.Common.Logging;
+using AutoFacMvc.Common.Models;
 
 namespace AutoFacMvc
 {
@@ -17,6 +22,12 @@ namespace AutoFacMvc
             // If we're using EntityFramework 6, here's where it'd go.
             // This is in the MiniProfiler.EF6 NuGet package.
             MiniProfilerEF6.Initialize();
+
+            // register binders
+            ModelBinders.Binders.Add(typeof(SessionInfo), new SessionModelBinder());
+
+            // register auto mapper
+            AutoMapperConfig.Register();
 
             var builder = new ContainerBuilder();
 
@@ -35,8 +46,6 @@ namespace AutoFacMvc
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
-            //ModelBinders.Binders.Add(typeof(Student), new StudentModelBinder());
         }
 
         protected void Application_BeginRequest()
@@ -53,5 +62,29 @@ namespace AutoFacMvc
         {
             MiniProfiler.Stop(); // Be sure to stop the profiler!
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+            //记录日志信息  
+            LogManager.Error(exception);
+#if !DEBUG
+            //如果为空则走自定义
+            var httpStatusCode = (exception as HttpException)?.GetHttpCode() ?? 700; 
+            var httpContext = ((MvcApplication)sender).Context;
+            httpContext.ClearError();
+            //直接跳转到对应错误页面
+            switch (httpStatusCode)
+            {
+                case 404:
+                    httpContext.Response.Redirect("/Error/404.html");
+                    break;
+                default:
+                    httpContext.Response.Redirect("/Error/500.html");
+                    break;
+            }
+#endif
+        }
+
     }
 }

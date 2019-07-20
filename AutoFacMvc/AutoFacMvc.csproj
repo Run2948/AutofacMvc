@@ -51,6 +51,9 @@
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -70,11 +73,17 @@
     <Reference Include="MiniProfiler.Mvc, Version=3.0.11.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
       <HintPath>..\packages\MiniProfiler.MVC4.3.0.11\lib\net40\MiniProfiler.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -114,46 +123,73 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Error\300.html" />
+    <Content Include="Error\100.html" />
+    <Content Include="Error\200.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.11.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.11.3.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Attributes\JsonNetResultAttribute.cs" />
+    <Compile Include="Attributes\SessionModelBinder.cs" />
+    <Compile Include="Attributes\UserPermissionAttribute.cs" />
+    <Compile Include="Common\Extensions\AutoMapperExtension.cs" />
+    <Compile Include="Common\Models\ResultInfo.cs" />
+    <Compile Include="Common\Models\SessionInfo.cs" />
+    <Compile Include="Common\Extensions\EncryptExtension.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserBaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201303251430025_AddStudent.cs" />
-    <Compile Include="Migrations\201303251430025_AddStudent.Designer.cs">
-      <DependentUpon>201303251430025_AddStudent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201303271227013_AddTableStudent.cs" />
-    <Compile Include="Migrations\201303271227013_AddTableStudent.Designer.cs">
-      <DependentUpon>201303271227013_AddTableStudent.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Common\Logging\LogManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\SchoolModels.cs" />
+    <Compile Include="Models\SchoolContext.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\UserInfo.cs" />
+    <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Core\BaseRepository.cs" />
     <Compile Include="Repository\Core\IRepository.cs" />
     <Compile Include="Repository\Core\IUnitOfWork.cs" />
     <Compile Include="Repository\Core\UnitOfWork.cs" />
-    <Compile Include="Repository\IStudentRepository.cs" />
+    <Compile Include="Repository\Interface\IStudentRepository.cs" />
+    <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
-    <Compile Include="StudentModelBinder.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
-    <Content Include="Views\Home\AddNewStudent.cshtml" />
+    <Content Include="Views\Home\EditStudent.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Error\404.html" />
+    <Content Include="Error\500.html" />
+    <Content Include="Scripts\jquery-1.11.3.min.map" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -163,14 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201303251430025_AddStudent.resx">
-      <DependentUpon>201303251430025_AddStudent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201303271227013_AddTableStudent.resx">
-      <DependentUpon>201303271227013_AddTableStudent.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Views\UserNase\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
