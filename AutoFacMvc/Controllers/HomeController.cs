@@ -23,10 +23,8 @@ namespace AutoFacMvc.Controllers
         public ActionResult Index(PageViewModel page)
         {
             //Repository使用IQueryable返回结果
-            //_studentRepository.GetIQueryableStudents().ToList();
-            var students = _studentRepository.Filter(page.CurrentIndex, page.PageSize, out var total, l => true, l => l.Id).ToList();
-            page.TotalCount = total;
-            ViewData["PageModel"] = page;
+            var students = _studentRepository.Filter(page.PageIndex, page.PageSize, out var total, l => true, l => l.Id).ToList();
+            ViewPager(page, total);
             return View(students);
         }
 

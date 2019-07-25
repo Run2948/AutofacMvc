@@ -4,71 +4,71 @@
 @{
     if (Model != null && Model.TotalPages > 0)
     {
-        <ul class="pagination">
+        <ul class="pagination @(Model.PullRight?"pull-right":"")">
             @{
-                @*<li class="disabled"><a>Total @(Model.TotalPages) Pages</a></li>*@
 
-                @Url.CreatePageItem(Model, Model.CurrentIndex - 1, false, Model.IsHasPrePage, "&laquo;")
+                @Url.CreatePageLabel($"Total {Model.TotalCount} Counts")
+
+                @Url.CreatePageItem(Model, Model.PageIndex - 1, false, Model.IsHasPrePage, "&laquo;")
 
                 if (Model.TotalPages <= Model.DisplayMaxPages)
                 {
                     for (var i = 1; i < Model.TotalPages; i++)
                     {
-                        @Url.CreatePageItem(Model, i, i == Model.CurrentIndex);
+                        @Url.CreatePageItem(Model, i, i == Model.PageIndex);
                     }
                 }
                 else
                 {
-                    if (Model.CurrentIndex - 1 < 5)
+                    if (Model.PageIndex - 1 < 5)
                     {
                         for (var i = 1; i <= Model.DisplayMaxPages - 1; i++)
                         {
-                            @Url.CreatePageItem(Model, i, i == Model.CurrentIndex);
+                            @Url.CreatePageItem(Model, i, i == Model.PageIndex);
                         }
 
-                        @Url.CreatePageItem(Model, Model.CurrentIndex, false, false, "...");
+                        @Url.CreatePageItem(Model, Model.PageIndex, false, false, "...");
                     }
                     else
                     {
                         @Url.CreatePageItem(Model, 1);
 
-                        if (Model.CurrentIndex + (Model.DisplayMaxPages - 2) / 2 >= Model.TotalPages)
+                        if (Model.PageIndex + (Model.DisplayMaxPages - 2) / 2 >= Model.TotalPages)
                         {
-                            var page = Model.CurrentIndex - (Model.DisplayMaxPages - Model.TotalPages + Model.CurrentIndex - 1);
+                            var page = Model.PageIndex - (Model.DisplayMaxPages - Model.TotalPages + Model.PageIndex - 1);
 
                             if (page > 1)
                             {
-                                @Url.CreatePageItem(Model, Model.CurrentIndex, false, false, "...");
+                                @Url.CreatePageItem(Model, Model.PageIndex, false, false, "...");
                             }
 
                             for (var i = page + 1; i < Model.TotalPages; i++)
                             {
-                                @Url.CreatePageItem(Model, i, i == Model.CurrentIndex);
+                                @Url.CreatePageItem(Model, i, i == Model.PageIndex);
                             }
                         }
                         else
                         {
-                            var page = Model.CurrentIndex - (Model.DisplayMaxPages - 2) / 2;
+                            var page = Model.PageIndex - (Model.DisplayMaxPages - 2) / 2;
 
                             if (page > 2)
                             {
-                                @Url.CreatePageItem(Model, Model.CurrentIndex, false, false, "...");
+                                @Url.CreatePageItem(Model, Model.PageIndex, false, false, "...");
                             }
 
-                            for (var i = page; i < Model.CurrentIndex + (Model.DisplayMaxPages - 2) / 2; i++)
+                            for (var i = page; i < Model.PageIndex + (Model.DisplayMaxPages - 2) / 2; i++)
                             {
-                                @Url.CreatePageItem(Model, i, i == Model.CurrentIndex);
+                                @Url.CreatePageItem(Model, i, i == Model.PageIndex);
                             }
-                            @Url.CreatePageItem(Model, Model.CurrentIndex, false, false, "...");
+                            @Url.CreatePageItem(Model, Model.PageIndex, false, false, "...");
                         }
                     }
                 }
 
-                @Url.CreatePageItem(Model, Model.TotalPages, Model.TotalPages == Model.CurrentIndex)
-                @Url.CreatePageItem(Model, Model.CurrentIndex + 1, false, Model.IsHasNextPage, "&raquo;")
+                @Url.CreatePageItem(Model, Model.TotalPages, Model.TotalPages == Model.PageIndex)
+                @Url.CreatePageItem(Model, Model.PageIndex + 1, false, Model.IsHasNextPage, "&raquo;")
 
-                @*<li class="disabled"><a>Total @(Model.TotalCount) Counts</a></li>*@
-                @*<li class="active"><input type="number" min="1" max="@Model.TotalPages" id="" value="1" class="form-control pull-left" style="width: 60px;display: inline-block;" /><a class="btn btn-default">Go</a></li>*@
+                @Url.CreatePageLabel($"Total {Model.TotalPages} Pages")
             }
         </ul>
     }

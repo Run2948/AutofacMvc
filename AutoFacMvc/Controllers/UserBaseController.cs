@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AutoFacMvc.Attributes;
 using AutoFacMvc.Common.Models;
+using AutoFacMvc.Models.ViewModels;
 
 namespace AutoFacMvc.Controllers
 {
@@ -37,6 +38,15 @@ namespace AutoFacMvc.Controllers
             System.Web.HttpContext.Current.Session.Abandon();
         }
 
-        #endregion   
+        #endregion
+
+        #region 用户 Pager 相关操作
+
+        protected void ViewPager(PageViewModel page,int total)
+        {
+            page.TotalCount = total;
+            ViewData["PageModel"] = page;
+        }
+        #endregion
     }
 }

@@ -49,9 +49,9 @@ namespace AutoFacMvc.Repository.Core
         {
             var skipCount = (index - 1) * size;
             var resultSet = Context.Set<TEntity>().Where(filter).AsQueryable();
+            total = resultSet.Count();
             resultSet = isAsc ? resultSet.OrderBy(order) : resultSet.OrderByDescending(order);
             resultSet = skipCount == 0 ? resultSet.Take(size) : resultSet.Skip(skipCount).Take(size);
-            total = resultSet.Count();
             return resultSet.AsQueryable();
         }
 
