@@ -5,6 +5,7 @@ using AutoFacMvc.Repository.Core;
 using System.Linq;
 using System.Web.Mvc;
 using AutoFacMvc.Common.Logging;
+using AutoFacMvc.Models.ViewModels;
 using AutoFacMvc.Repository.Interface;
 
 namespace AutoFacMvc.Controllers
@@ -19,12 +20,13 @@ namespace AutoFacMvc.Controllers
             _studentRepository = _repositoryCenter.GetRepository<IStudentRepository>();
         }
 
-        public ActionResult Index(SessionInfo loginUser)
+        public ActionResult Index(PageViewModel page)
         {
             //Repository使用IQueryable返回结果
-            var students = _studentRepository.Filter(1, 12, out var total, l => true, l => l.Id).ToList();
             //_studentRepository.GetIQueryableStudents().ToList();
-            LogManager.Info(GetType(), $"{loginUser.UserName}用户访问了学生列表");
+            var students = _studentRepository.Filter(page.CurrentIndex, page.PageSize, out var total, l => true, l => l.Id).ToList();
+            page.TotalCount = total;
+            ViewData["PageModel"] = page;
             return View(students);
         }
 

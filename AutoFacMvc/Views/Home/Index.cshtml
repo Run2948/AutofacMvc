@@ -42,7 +42,7 @@
             <tfoot>
                 <tr>
                     <td colspan="6" class="">
-                        Total @Model.Count() Counts
+                        @Html.Partial("_Pager", ViewData["PageModel"])
                     </td>
                 </tr>
             </tfoot>
