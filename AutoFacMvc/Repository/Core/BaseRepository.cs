@@ -38,21 +38,21 @@ namespace AutoFacMvc.Repository.Core
         /// <summary>
         /// Gets objects from database with filtering and paging.
         /// </summary>
-        /// <param name="filter">Specified a filter</param>
-        /// <param name="total">Returns the total records count of the filter.</param>
         /// <param name="index">Specified the page index.</param>
         /// <param name="size">Specified the page size</param>
+        /// <param name="total">Returns the total records count of the filter.</param>
+        /// <param name="filter">Specified a filter</param>
+        /// <param name="order">Specified a order</param>
+        /// <param name="isAsc">Specified ascending or descending</param>
         /// <returns></returns>
-        public virtual IQueryable<TEntity> Filter(Expression<Func<TEntity, bool>> filter, out int total, int index = 0,
-            int size = 50)
+        public virtual IQueryable<TEntity> Filter<T>(int index, int size, out int total, Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, T>> order, bool isAsc = true)
         {
-            var skipCount = index * size;
-            var resetSet = filter != null
-                ? Context.Set<TEntity>().Where<TEntity>(filter).AsQueryable()
-                : Context.Set<TEntity>().AsQueryable();
-            resetSet = skipCount == 0 ? resetSet.Take(size) : resetSet.Skip(skipCount).Take(size);
-            total = resetSet.Count();
-            return resetSet.AsQueryable();
+            var skipCount = (index - 1) * size;
+            var resultSet = Context.Set<TEntity>().Where(filter).AsQueryable();
+            resultSet = isAsc ? resultSet.OrderBy(order) : resultSet.OrderByDescending(order);
+            resultSet = skipCount == 0 ? resultSet.Take(size) : resultSet.Skip(skipCount).Take(size);
+            total = resultSet.Count();
+            return resultSet.AsQueryable();
         }
 
         /// <summary>

@@ -22,7 +22,8 @@ namespace AutoFacMvc.Controllers
         public ActionResult Index(SessionInfo loginUser)
         {
             //Repository使用IQueryable返回结果
-            var students = _studentRepository.GetIQueryableStudents().ToList();
+            var students = _studentRepository.Filter(1, 12, out var total, l => true, l => l.Id).ToList();
+            //_studentRepository.GetIQueryableStudents().ToList();
             LogManager.Info(GetType(), $"{loginUser.UserName}用户访问了学生列表");
             return View(students);
         }
