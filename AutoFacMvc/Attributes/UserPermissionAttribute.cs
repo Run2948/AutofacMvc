@@ -59,7 +59,7 @@ namespace AutoFacMvc.Attributes
             // 拦截 未登录用户
             if (!IsUserLogin())
             {
-                filterContext.Result = new ContentResult() { Content = SystemKeys.UserLogin };
+                filterContext.Result = new RedirectResult(SystemKeys.UserLogin);
                 return;
             }
 
